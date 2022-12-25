@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Типы продуктов</title>
+</head>
+<body>
+    <h1>Типы продуктов</h1>
+    <ul>
+        {% for type in all_types %}
+        <div>
+            <li>{{ type }}
+            <a href="{% url 'delete-type' type.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+          <label for="name">Добавить новый тип продукта: </label>
+        </div>
+        <div>
+            <input type="text" name="type_name" required>
+          </div>
+        <div>
+          <input type="submit" value="Добавить">
+        </div>
+      </form>
+</body>
+</html>

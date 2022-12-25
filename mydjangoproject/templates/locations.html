@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Места хранения</title>
+</head>
+<body>
+  <h1>Места хранения</h1>
+    <ul>
+        {% for location in all_locations %}
+        <div>
+            <li>{{ location }}
+            <a href="{% url 'delete-location' location.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+          <label for="name">Добавить новое место хранения: </label>
+        </div>
+        <div>
+            <input type="text" name="location_name" required>
+          </div>
+        <div>
+          <input type="submit" value="Добавить">
+        </div>
+      </form>
+</body>
+</html>

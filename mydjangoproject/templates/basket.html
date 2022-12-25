@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+</head>
+<body>
+    <h1>Корзина</h1>
+    <p>{{status}}</p>
+    <ul>
+        {% for basket_product in all_basket_products %}
+        <div>
+            <li>{{ basket_product }}
+            <a href="{% url 'delete-basket-product' basket_product.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+            <a href="{% url 'edit-basket-product' basket_product.id %}" class="btn btn-outline-danger btn-sm">Редактировать</a>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+          <h2>Добавить продукт в корзину: </h2>
+        </div>
+        <div>
+            <label for="name">Название </label>
+            <select name = "basket_product_name">
+                {% for product in all_products %}
+                <option id = product.id> {{product.name}} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="number">Количество </label>
+            <input type="text" name="basket_product_number" required>
+        </div>
+        <div>
+            <label for="comment">Комментарий </label>
+            <input type="text" name="basket_product_comment">
+        </div>
+        <div>
+          <input type="submit" value="Добавить">
+        </div>
+    </form>
+    <form method="POST">
+      {% csrf_token %}
+      <h2>Очистить корзину</h2>
+      <a href="{% url 'delete-all-basket-products' %}" class="btn btn-outline-danger btn-sm">Очистить корзину</a>
+    </form>
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Собрать корзину</h2>
+        <a href="{% url 'make-basket' %}" class="btn btn-outline-danger btn-sm">Собрать корзину</a>
+      </form>
+</body>
+</html>

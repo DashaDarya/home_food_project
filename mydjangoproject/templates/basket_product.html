@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+</head>
+<body>
+    <h1>Редактор корзины</h1>
+    <h2>{{basket_product.name.name}}, {{basket_product.number}} шт. {{basket_product.comment}}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="number">Количество </label>
+            <input type="text" name="basket_product_number">
+        </div>
+        <div>
+            <label for="comment">Комментарий </label>
+            <input type="text" name="basket_product_comment">
+        </div>
+        <div>
+          <input type="submit" value="Изменить">
+        </div>
+    </form>
+
+</body>
+</html>

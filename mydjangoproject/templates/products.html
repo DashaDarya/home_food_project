@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продукты</title>
+</head>
+<body>
+  <h1>Продукты</h1>
+  <p> &#128994; - необходимые продукты</p>
+  <p> &#128993; - не необходимые продукты</p>
+    <ul>
+        {% for product in all_products %}
+        <div>
+            <li>{{ product }}
+            <a href="{% url 'delete-product' product.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+          <h2>Добавить продукт: <h2>
+        </div>
+        <div>
+            <label for="product_name">Название продукта: </label>
+            <input type="text" name="product_name" required>
+        </div>
+        <div>
+            <label for="product_type">Тип продукта: </label>
+            <select name = "product_type">
+                {% for type in all_types %}
+                <option id = type.id> {{type.name}} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="product_necessity">Необходимость: </label>
+            <input type="checkbox" name="product_necessity" value="True">
+        </div>
+        <div>
+          <input type="submit" value="Добавить">
+        </div>
+
+</body>
+</html>

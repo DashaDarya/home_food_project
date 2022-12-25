@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покупки</title>
+</head>
+<body>
+  <h1>Покупки</h1>
+    <ul>
+        {% for purchase in all_purchases %}
+        <div>
+            <li>{{ purchase }}
+            <a href="{% url 'delete-purchase' purchase.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Добавить покупку</h2>
+        <div>
+          <label for="purchase_name">Название: </label>
+          <select name = "purchase_name">
+            {% for product in all_products %}
+            <option id = product.id> {{product.name}} </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="purchase_date">Дата покупки: </label>
+          <input id="purchase_date" type="date" name="purchase_date" required>
+        </div>
+        <div>
+          <label for="expiration_date">Срок годности: </label>
+          <input id="expiration_date" type="date" name="expiration_date">
+        </div>
+        <div>
+          <label for="purchase_number">Количество: </label>
+          <input type="text" name="purchase_number" required>
+        </div>
+        <div>
+          <label for="purchase_location">Место хранения: </label>
+          <select name = "purchase_location">
+            {% for location in all_locations %}
+            <option id = location.id> {{location.name}} </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="purchase_comment">Комментарий: </label>
+            <input type="text" name="purchase_comment">
+        </div>
+        <div>
+          <input type="submit" value="Добавить">
+        </div>
+      </form>
+</body>
+</html>
