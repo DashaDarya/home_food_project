@@ -50,7 +50,7 @@ def get_text_messages(message):
     bot.send_message(message.from_user.id, message_list)
 
   elif "привет" in message.text or message.text == "/hello":
-    bot.send_message(message.chat.id, "Привет, собираешься за продуктами?")
+    bot.send_message(message.chat.id, "Привет, собираешься за продуктами, дружок?")
   elif message.text == "/help":
     bot.send_message(message.from_user.id, "Напиши: Список")
   else:
@@ -60,16 +60,10 @@ def remind(message):
   bot.send_message(message.chat.id, "Пора пополнить список продуктов!")
   
 
-bot.polling(none_stop=True, interval=0)
-
-
-# Название класса обязательно - "Command"
 class Command(BaseCommand):
   	# Используется как описание команды обычно
     help = 'Implemented to Django application telegram bot setup command'
 
     def handle(self, *args, **kwargs):
-        # bot.enable_save_next_step_handlers(delay=2) # Сохранение обработчиков
-        # bot.load_next_step_handlers()								# Загрузка обработчиков
-        # bot.infinity_polling()											# Бесконечный цикл бота
-        pass
+        print("Starting TG bot ...")
+        bot.polling(none_stop=True, interval=0)
