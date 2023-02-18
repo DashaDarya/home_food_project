@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:alpine
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=docker_compose_ex
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    command: bash startup.bash
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_DB=docker_compose_ex
+      - POSTGRES_USER=postgres
+      - POSTGRES_NAME=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+      - DJANGO_SETTINGS_MODULE=mydjangoproject.settings
+    depends_on:
+      - db
+  bot:
+    build: .
+    command: bash start_bot.bash
+    volumes:
+      - .:/code
+    environment:
+      - POSTGRES_DB=docker_compose_ex
+      - POSTGRES_USER=postgres
+      - POSTGRES_NAME=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+      - DJANGO_SETTINGS_MODULE=mydjangoproject.settings
+    depends_on:
+      - db

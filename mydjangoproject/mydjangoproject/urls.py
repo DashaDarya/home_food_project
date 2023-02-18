@@ -29,6 +29,16 @@ from foodapp1.views import make_basket
 from foodapp1.views import purchases_page
 from foodapp1.views import delete_purchase
 from foodapp1.views import edit_basket_product
+from foodapp1.views import return_to_basket
+from foodapp1.views import edit_purchase
+from foodapp1.views import return_to_purchases
+from foodapp1.views import add_purchases_from_basket
+from foodapp1.views import show_expired
+from foodapp1.views import show_old
+from foodapp1.views import return_to_locations_page
+from foodapp1.views import return_to_types_page
+from foodapp1.views import return_to_products_page
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,5 +55,14 @@ urlpatterns = [
     path('delete-product/<product_id>/', delete_product, name="delete-product"),
     path('purchases/',purchases_page),
     path('delete-purchase/<purchase_id>/', delete_purchase, name="delete-purchase"),
-    path('edit-basket-products/<basket_product_id>/', edit_basket_product, name="edit-basket-product"),
+    path('edit-basket-product/<basket_product_id>/', edit_basket_product, name="edit-basket-product"),
+    path('return-to-basket/', return_to_basket, name="return-to-basket"),
+    path('edit-purchase/<purchase_id>/', edit_purchase, name="edit-purchase"),
+    path('return-to-purchases/', return_to_purchases, name="return-to-purchases"),
+    path('add-purchases-from-basket/', add_purchases_from_basket, name="add-purchases-from-basket"),
+    path('show-expired/', show_expired, name="show-expired"),
+    path('show-old/', show_old, name="show_old"),
+    path('return-to-locations', return_to_locations_page, name="return-to-locations"),
+    path('return-to-types', return_to_types_page, name='return-to-types'),
+    path('return-to-products', return_to_products_page, name='return-to-products')
 ]

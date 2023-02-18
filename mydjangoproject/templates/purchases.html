@@ -7,15 +7,36 @@
     <title>Покупки</title>
 </head>
 <body>
+  <a href="{% url 'return-to-purchases' %}">Покупки|</a>
+  <a href="{% url 'return-to-basket' %}">Корзина|</a>
+  <a href="{% url 'return-to-products' %}">Продукты|</a>
+  <a href="{% url 'return-to-locations' %}">Места хранения |</a>
+  <a href="{% url 'return-to-types' %}">Типы продуктов</a>
   <h1>Покупки</h1>
     <ul>
+      <table bordercolor="black" border="1" width="70%">
+        <tr>
+          <td>Продукт</td>
+          <td>Дата покупки</td>
+          <td>Срок годности</td>
+          <td>Количество</td>
+          <td>Место хранения</td>
+          <td>Комментарий</td>
+          <td colspan="2"> Действия</td>
+        </tr>
         {% for purchase in all_purchases %}
-        <div>
-            <li>{{ purchase }}
-            <a href="{% url 'delete-purchase' purchase.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
-            </li>
-        </div>
+            <tr>
+              <td>{{ purchase.name.name }}</td>
+              <td>{{ purchase.purchase_date }}</td>
+              <td>{{ purchase.expiration_date }}</td>
+              <td>{{ purchase.number }}</td>
+              <td>{{ purchase.location }}</td>
+              <td>{{ purchase.comment }}</td>
+            <td><a href="{% url 'delete-purchase' purchase.id %}" class="btn btn-outline-danger btn-sm">Удалить</a></td>
+            <td><a href="{% url 'edit-purchase' purchase.id %}" class="btn btn-outline-danger btn-sm">Редактировать</a></td>
+            </tr>
         {% endfor %}
+        </table>
     </ul>
     <form method="POST">
         {% csrf_token %}
@@ -53,7 +74,49 @@
             <input type="text" name="purchase_comment">
         </div>
         <div>
-          <input type="submit" value="Добавить">
+          <input type="submit" name="new_purchase_submit" value="Добавить">
+        </div>
+      </form>
+      <form>
+        <h2>Просроченные продукты</h2>
+        <a href="{% url 'show-expired' %}">Показать</a>
+      </form>
+      <form>
+        <h2>Продукты, которые лежат больше месяца и не имеют срока годности</h2>
+        <a href="{% url 'show_old' %}">Показать</a>
+      </form>
+      <form method="post">
+        {% csrf_token %}
+        <h2>Поиск по типу продукта</h2>
+        <div>
+          <label for="type_search">Выберите тип продукта </label>
+        </div>
+        <div>
+          <select name = "type_search_name">
+            {% for type in all_types %}
+            <option id = type.id> {{type.name}} </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <input type="submit" name="type_search_submit" value="Показать продукты выбранного типа">
+        </div>
+      </form>
+      <form method="post">
+        {% csrf_token %}
+        <h2>Показать, что лежит в выбранном месте</h2>
+        <div>
+          <label for="location_search">Выберите место</label>
+        </div>
+        <div>
+          <select name = "location_search_name">
+            {% for location in all_locations %}
+            <option id = location.id> {{location.name}} </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <input type="submit" name="location_search_submit" value="Выбрать">
         </div>
       </form>
 </body>

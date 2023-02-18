@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Просроченные</title>
+</head>
+<body>
+    <a href="{% url 'return-to-purchases' %}">Покупки|</a>
+    <a href="{% url 'return-to-basket' %}">Корзина|</a>
+    <a href="{% url 'return-to-products' %}">Продукты|</a>
+    <a href="{% url 'return-to-locations' %}">Места хранения |</a>
+    <a href="{% url 'return-to-types' %}">Типы продуктов</a>
+    <h1>Просроченные продукты</h1>
+    <table bordercolor="black" border="1" width="50%">
+        <tr>
+          <td>Продукт</td>
+          <td>Дата покупки</td>
+          <td>Срок годности</td>
+          <td>Количество</td>
+          <td>Место хранения</td>
+          <td>Комментарий</td>
+        </tr>
+        {% for expired_purchase in expired_purchases %}
+            <tr>
+              <td>{{ expired_purchase.name.name }}</td>
+              <td>{{ expired_purchase.purchase_date }}</td>
+              <td>{{ expired_purchase.expiration_date }}</td>
+              <td>{{ expired_purchase.number }}</td>
+              <td>{{ expired_purchase.location }}</td>
+              <td>{{ expired_purchase.comment }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+</body>
+</html>

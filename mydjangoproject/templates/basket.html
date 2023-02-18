@@ -7,18 +7,42 @@
     <title>Корзина</title>
 </head>
 <body>
+    <script language="JavaScript">
+        function toggle(source) {
+          checkboxes = document.getElementsByName('checks[]');
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+             checkboxes[i].checked = source.checked;
+             }
+        }
+    </script>
+        
+        
+    <a href="{% url 'return-to-purchases' %}">Покупки|</a>
+    <a href="{% url 'return-to-basket' %}">Корзина|</a>
+    <a href="{% url 'return-to-products' %}">Продукты|</a>
+    <a href="{% url 'return-to-locations' %}">Места хранения |</a>
+    <a href="{% url 'return-to-types' %}">Типы продуктов</a>
     <h1>Корзина</h1>
     <p>{{status}}</p>
+    
+    <input type="checkbox" onClick="toggle(this)" /> Toggle All<br/>
+    <form method="POST">
     <ul>
         {% for basket_product in all_basket_products %}
         <div>
-            <li>{{ basket_product }}
+            {{ basket_product }}
             <a href="{% url 'delete-basket-product' basket_product.id %}" class="btn btn-outline-danger btn-sm">Удалить</a>
             <a href="{% url 'edit-basket-product' basket_product.id %}" class="btn btn-outline-danger btn-sm">Редактировать</a>
-            </li>
+            <input type="checkbox" name="checks[]" value="{{basket_product.id}}">
         </div>
         {% endfor %}
     </ul>
+
+        {% csrf_token %}
+        
+        <h2>Добавить выделенное в покупки</h2>
+        <input type="submit" name="purchased" value="Куплено">
+    </form>
     <form method="POST">
         {% csrf_token %}
         <div>
@@ -41,7 +65,7 @@
             <input type="text" name="basket_product_comment">
         </div>
         <div>
-          <input type="submit" value="Добавить">
+          <input type="submit" name="post" value="Добавить">
         </div>
     </form>
     <form method="POST">

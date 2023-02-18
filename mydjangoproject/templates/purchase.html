@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покупки</title>
+</head>
+<body>
+    <a href="{% url 'return-to-purchases' %}">Покупки|</a>
+    <a href="{% url 'return-to-basket' %}">Корзина|</a>
+    <a href="{% url 'return-to-products' %}">Продукты|</a>
+    <a href="{% url 'return-to-locations' %}">Места хранения |</a>
+    <a href="{% url 'return-to-types' %}">Типы продуктов</a>
+    <h1>Редактор покупок</h1>
+    <h2>{{purchase}}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="purchase_date">Дата покупки: </label>
+            <input id="purchase_date" type="date" name="purchase_date">
+        </div>
+        <div>
+            <label for="expiration_date">Срок годности: </label>
+            <input id="purchase_expiration_date" type="date" name="purchase_expiration_date">
+            <label>Очистить срок годности</label>
+            <input type="checkbox" name="delete_expiration_date" value="True">
+        </div>
+        <div>
+            <label for="purchase_number">Количество: </label>
+            <input type="text" name="purchase_number">
+        </div>
+        <div>
+            <label for="purchase_location">Место хранения: </label>
+        <select name = "purchase_location">
+            <option> - Не выбрано - </option>
+            {% for location in all_locations %}
+            <option id = location.id> {{location.name}} </option>
+            {% endfor %}
+        </select>
+        </div>
+        <div>
+            <label for="comment">Комментарий: </label>
+            <input type="text" name="purchase_comment">
+        </div>
+        <div>
+          <input type="submit" value="Изменить">
+        </div>
+    </form>
+</body>
+</html>

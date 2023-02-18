@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Покупки</title>
+</head>
+<body>
+    <a href="{% url 'return-to-purchases' %}">Покупки|</a>
+    <a href="{% url 'return-to-basket' %}">Корзина|</a>
+    <a href="{% url 'return-to-products' %}">Продукты|</a>
+    <a href="{% url 'return-to-locations' %}">Места хранения |</a>
+    <a href="{% url 'return-to-types' %}">Типы продуктов</a>
+    <h1>Продукты, которые лежать больше месяца</h1>
+    <table bordercolor="black" border="1" width="50%">
+        <tr>
+          <td>Продукт</td>
+          <td>Дата покупки</td>
+          <td>Срок годности</td>
+          <td>Количество</td>
+          <td>Место хранения</td>
+          <td>Комментарий</td>
+        </tr>
+        {% for old_product in old_products %}
+            <tr>
+              <td>{{ old_product.name.name }}</td>
+              <td>{{ old_product.purchase_date }}</td>
+              <td>{{ old_product.expiration_date }}</td>
+              <td>{{ old_product.number }}</td>
+              <td>{{ old_product.location }}</td>
+              <td>{{ old_product.comment }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+</body>
+</html>
