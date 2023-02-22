@@ -1,13 +1,14 @@
-from foodapp1.management.commands.bot import remind
-import datetime
-import time
+from telebot import TeleBot
+from django.core.management.base import BaseCommand
+import os
 
-while True:
-    now_time = datetime.datetime.now().time()
-    time_string = '16:30:00'
-    target_time = datetime.datetime.strptime(time_string, "%H:%M:%S").time()
-    if now_time == target_time:
-        remind(message)
-        time.sleep(60)
-    else:
-        time.sleep(30)
+class Command(BaseCommand):
+  	# Используется как описание команды обычно
+    help = 'remind in telegram'
+
+    def handle(self, *args, **kwargs):
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+        recepient_id = os.getenv("TELEGRAM_RECEPIENT_ID")
+
+        bot = TeleBot(bot_token)
+        bot.send_message(recepient_id, 'Привет! Обнови данные о продуктах!')

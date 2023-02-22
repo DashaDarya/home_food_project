@@ -24,6 +24,7 @@ services:
       - POSTGRES_PORT=5432
       - DJANGO_SETTINGS_MODULE=mydjangoproject.settings
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_RECEPIENT_ID=${TELEGRAM_RECEPIENT_ID}
     depends_on:
       - db
   bot:
@@ -40,5 +41,6 @@ services:
       - POSTGRES_PORT=5432
       - DJANGO_SETTINGS_MODULE=mydjangoproject.settings
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_RECEPIENT_ID=${TELEGRAM_RECEPIENT_ID}
     depends_on:
       - db
