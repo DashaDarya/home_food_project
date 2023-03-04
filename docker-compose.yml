@@ -8,6 +8,7 @@ services:
       - POSTGRES_DB=docker_compose_ex
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    restart: always
   web:
     build: .
     command: bash startup.bash
@@ -25,6 +26,7 @@ services:
       - DJANGO_SETTINGS_MODULE=mydjangoproject.settings
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - TELEGRAM_RECEPIENT_ID=${TELEGRAM_RECEPIENT_ID}
+    restart: always
     depends_on:
       - db
   bot:
@@ -42,5 +44,6 @@ services:
       - DJANGO_SETTINGS_MODULE=mydjangoproject.settings
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - TELEGRAM_RECEPIENT_ID=${TELEGRAM_RECEPIENT_ID}
+    restart: always
     depends_on:
       - db
